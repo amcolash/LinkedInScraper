@@ -28,7 +28,7 @@ function checkKey(e) {
         e.preventDefault();
     } else if (e.keyCode == '32') {
         var row = job_container.children[current];
-        incrementJob(true, true, !row.getElementsByClassName("form-check-input")[0].checked);
+        incrementJob(true, true, !row.getElementsByClassName("custom-control-input")[0].checked);
         e.preventDefault();
     }
 }
@@ -80,20 +80,24 @@ function loaded() {
         const div = document.createElement("div");
         div.classList = "col card card-body";
 
-        var form = document.createElement("div");
+        var form = document.createElement("label");
         var checkbox = document.createElement("input");
-        var header = document.createElement("label");
+        var indicator = document.createElement("span");
+        var header = document.createElement("span");
         var br = document.createElement("br");
         
-        form.className = "form-check";
+        form.classList = "custom-control custom-checkbox";
         form.appendChild(checkbox);
+        form.appendChild(indicator);
         form.appendChild(header);
 
         checkbox.type = "checkbox";
-        checkbox.className = "form-check-input";
+        checkbox.className = "custom-control-input";
+
+        indicator.classList = "custom-control-indicator";
         
         header.innerHTML = job.company + " - " + job.title;
-        header.className = "form-check-label";
+        header.className = "custom-control-description";
 
         div.onclick = () => selectDescription(index);
         div.appendChild(form);
@@ -109,7 +113,7 @@ function loaded() {
 
 function incrementJob(forward, checkPrev, value) {
     var row = job_container.children[current];
-    if (checkPrev) row.getElementsByClassName("form-check-input")[0].checked = value;
+    if (checkPrev) row.getElementsByClassName("custom-control-input")[0].checked = value;
 
     // Increment within bounds
     current = current + (forward ? 1 : -1);
@@ -148,7 +152,7 @@ function openLinks() {
     if (confirm("Are you sure you would like to open all selected jobs as tabs?")) {
         for (var i = 0; i < job_container.children.length; i++) {
             var row = job_container.children[i];
-            if (row.getElementsByClassName("form-check-input")[0].checked) {
+            if (row.getElementsByClassName("custom-control-input")[0].checked) {
                 window.open(data[i].url);
             }
         }
