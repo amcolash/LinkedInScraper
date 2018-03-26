@@ -130,9 +130,9 @@ function selectDescription(index) {
     job.description = job.description.replace("Job description", "");
     job.description = job.description.replace("Description", "");
 
-    description_container.scrollTo(0,0);
     description_container.innerHTML = "<h2>" + job.company + " - " + job.title + "</h2><h4>" +
-        ((job.level === "Not Applicable") ? job.type : job.level + ", " + job.type) + "</h4><hr>" + job.description;
+    ((job.level === "Not Applicable") ? job.type : job.level + ", " + job.type) + "</h4><hr>" + job.description;
+    description_container.scrollTo(0,0);
     current = index;
 
     for (var i = 0; i < job_container.children.length; i++) {
