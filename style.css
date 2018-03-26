@@ -10,3 +10,13 @@
     overflow-y: scroll;
     height: 100%;
 }
+
+.bottom-buttons {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.bottom-buttons h1 {
+    margin-right: 10px;
+}

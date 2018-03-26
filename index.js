@@ -9,8 +9,29 @@ var current = 0;
 const description_container = document.createElement("div");
 const job_container = document.createElement("div");
 
+const accept = document.createElement("h1");
+const reject = document.createElement("h1");
+const done = document.createElement("h1");
+
+var data;
+
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+    e = e || window.event;
+
+    if (e.keyCode == '37' || e.keyCode == '38') {
+        incrementJob(false, false, false);
+    } else if (e.keyCode == '39' || e.keyCode == '40') {
+        incrementJob(true, false, false);
+    } else if (e.keyCode == '32') {
+        var row = job_container.children[current];
+        incrementJob(true, true, !row.getElementsByClassName("form-check-input")[0].checked);
+    }
+}
+
 function loaded() {
-    const data = JSON.parse(this.response);
+    data = JSON.parse(this.response);
     
     const container = document.createElement("div");
     container.className = "container-fluid";
@@ -25,8 +46,28 @@ function loaded() {
     description_container.classList = "col-9 scroll";
     r.appendChild(description_container);
 
+    var bottom_buttons = document.createElement("div");
+    bottom_buttons.className = "bottom-buttons";
+
+    accept.classList = "btn btn-lg btn-success";
+    accept.innerHTML = "✓";
+    accept.onclick = () => incrementJob(true, true, true);
+
+    reject.classList = "btn btn-lg btn-danger";
+    reject.innerHTML = "×";
+    reject.onclick = () => incrementJob(true, true, false);
+
+    done.classList = "btn btn-lg btn-secondary";
+    done.innerHTML = "Done";
+    done.onclick = () => openLinks();
+
+    bottom_buttons.appendChild(accept);
+    bottom_buttons.appendChild(reject);
+    bottom_buttons.appendChild(done);
+
     const body = document.body;
     body.appendChild(container);
+    body.appendChild(bottom_buttons);
 
     console.log(data[0]);
 
@@ -53,7 +94,7 @@ function loaded() {
         header.innerHTML = job.company + " - " + job.title;
         header.className = "form-check-label";
 
-        div.onclick = () => selectDescription(job, index);
+        div.onclick = () => selectDescription(index);
         div.appendChild(form);
 
         row = document.createElement("div");
@@ -62,14 +103,36 @@ function loaded() {
         job_container.appendChild(row);
     }
 
-    selectDescription(data[0], 0);
+    selectDescription(0);
 }
 
-function selectDescription(job, index) {
+function incrementJob(forward, checkPrev, value) {
+    var row = job_container.children[current];
+    if (checkPrev) row.getElementsByClassName("form-check-input")[0].checked = value;
+
+    // Increment within bounds
+    current = current + (forward ? 1 : -1);
+    if (current < 0) current = 0;
+    if (current > (data.length - 1)) current = data.length - 1;
+
+    // Scroll to see selected row
+    var elem = job_container.children[current];
+    var rectElem = elem.getBoundingClientRect();
+    var rectContainer = job_container.getBoundingClientRect();
+    if (rectElem.bottom > rectContainer.bottom) elem.scrollIntoView(false);
+    if (rectElem.top < rectContainer.top) elem.scrollIntoView();
+
+    selectDescription(current);
+}
+
+function selectDescription(index) {
+    var job = data[index];
+
     job.description = job.description.replace("Job Description", "");
     job.description = job.description.replace("Job description", "");
     job.description = job.description.replace("Description", "");
 
+    description_container.scrollTo(0,0);
     description_container.innerHTML = "<h2>" + job.company + " - " + job.title + "</h2><h4>" +
         ((job.level === "Not Applicable") ? job.type : job.level + ", " + job.type) + "</h4><hr>" + job.description;
     current = index;
@@ -77,5 +140,16 @@ function selectDescription(job, index) {
     for (var i = 0; i < job_container.children.length; i++) {
         var row = job_container.children[i];
         row.classList = "row" + (i === index ? " active" : "");
+    }
+}
+
+function openLinks() {
+    if (confirm("Are you sure you would like to open all selected jobs as tabs?")) {
+        for (var i = 0; i < job_container.children.length; i++) {
+            var row = job_container.children[i];
+            if (row.getElementsByClassName("form-check-input")[0].checked) {
+                window.open(data[i].url);
+            }
+        }
     }
 }
