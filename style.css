@@ -1,3 +1,7 @@
+body {
+    font-family: 'Muli', sans-serif !important;
+}
+
 .active {
     border: 1px solid blue;
 }
