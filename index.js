@@ -69,8 +69,6 @@ function loaded() {
     body.appendChild(container);
     body.appendChild(bottom_buttons);
 
-    console.log(data[0]);
-
 
     for (var i = 0; i < data.length; i++) {
         const job = data[i];
