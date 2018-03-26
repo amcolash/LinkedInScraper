@@ -6,6 +6,10 @@ body {
     border: 1px solid blue;
 }
 
+.card {
+    cursor: pointer;
+}
+
 .card-body {
     padding: 0.5rem !important;
 }

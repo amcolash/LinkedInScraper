@@ -22,11 +22,14 @@ function checkKey(e) {
 
     if (e.keyCode == '37' || e.keyCode == '38') {
         incrementJob(false, false, false);
+        e.preventDefault();
     } else if (e.keyCode == '39' || e.keyCode == '40') {
         incrementJob(true, false, false);
+        e.preventDefault();
     } else if (e.keyCode == '32') {
         var row = job_container.children[current];
         incrementJob(true, true, !row.getElementsByClassName("form-check-input")[0].checked);
+        e.preventDefault();
     }
 }
 
