@@ -46,21 +46,21 @@ function loaded() {
     job_container.classList = "col scroll";
     r.appendChild(job_container);
     
-    description_container.classList = "col-9 scroll";
+    description_container.classList = "col-9 scroll p-3";
     r.appendChild(description_container);
 
     var bottom_buttons = document.createElement("div");
     bottom_buttons.className = "bottom-buttons";
 
-    accept.classList = "btn btn-lg btn-success";
+    accept.classList = "btn btn-lg btn-success mr-2";
     accept.innerHTML = "✓";
     accept.onclick = () => incrementJob(true, true, true);
 
-    reject.classList = "btn btn-lg btn-danger";
+    reject.classList = "btn btn-lg btn-danger mr-2";
     reject.innerHTML = "×";
     reject.onclick = () => incrementJob(true, true, false);
 
-    done.classList = "btn btn-lg btn-secondary";
+    done.classList = "btn btn-lg btn-info mr-2";
     done.innerHTML = "Done";
     done.onclick = () => openLinks();
 

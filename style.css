@@ -18,18 +18,12 @@ body {
 .scroll {
     overflow-y: scroll;
     height: 100%;
-    padding-top: 6px;
-    padding-bottom: 6px;
 }
 
 .bottom-buttons {
     position: absolute;
     bottom: 10px;
     right: 20px;
-}
-
-.bottom-buttons h1 {
-    margin-right: 10px;
 }
 
 .custom-control {
