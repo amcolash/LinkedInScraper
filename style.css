@@ -1,0 +1,12 @@
+.active {
+    border: 1px solid blue;
+}
+
+.card-body {
+    padding: 0.5rem !important;
+}
+
+.scroll {
+    overflow-y: scroll;
+    height: 100%;
+}
