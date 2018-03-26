@@ -1,17 +1,18 @@
 body {
-    font-family: 'Muli', sans-serif !important;
+    font-family: 'Muli', sans-serif;
 }
 
 .active {
-    border: 1px solid blue;
+    border: 1px solid #0275d8;
 }
 
 .card {
     cursor: pointer;
+    width: 100%;
 }
 
 .card-body {
-    padding: 0.5rem !important;
+    padding: 0.5rem;
 }
 
 .scroll {
@@ -29,4 +30,9 @@ body {
 
 .bottom-buttons h1 {
     margin-right: 10px;
+}
+
+.custom-control {
+    min-height: 1rem;
+    margin-right: 0;
 }

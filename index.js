@@ -79,28 +79,30 @@ function loaded() {
 
         const div = document.createElement("div");
         div.classList = "col card card-body";
+        div.onclick = () => selectDescription(index);
 
         var form = document.createElement("label");
         var checkbox = document.createElement("input");
         var indicator = document.createElement("span");
         var header = document.createElement("span");
-        var br = document.createElement("br");
         
         form.classList = "custom-control custom-checkbox";
         form.appendChild(checkbox);
         form.appendChild(indicator);
-        form.appendChild(header);
-
+        
         checkbox.type = "checkbox";
         checkbox.className = "custom-control-input";
-
+        
         indicator.classList = "custom-control-indicator";
         
         header.innerHTML = job.company + " - " + job.title;
         header.className = "custom-control-description";
+        
+        var innerRow = document.createElement("div");
+        innerRow.appendChild(form);
+        innerRow.appendChild(header);
 
-        div.onclick = () => selectDescription(index);
-        div.appendChild(form);
+        div.appendChild(innerRow);
 
         row = document.createElement("div");
         row.className = "row";
@@ -143,8 +145,8 @@ function selectDescription(index) {
     current = index;
 
     for (var i = 0; i < job_container.children.length; i++) {
-        var row = job_container.children[i];
-        row.classList = "row" + (i === index ? " active" : "");
+        var card = job_container.children[i].getElementsByClassName("card")[0];
+        card.classList = "card card-body" + (i === index ? " active" : "");
     }
 }
 
