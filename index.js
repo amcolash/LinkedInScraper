@@ -20,13 +20,18 @@ document.onkeydown = checkKey;
 function checkKey(e) {
     e = e || window.event;
 
-    if (e.keyCode == '37' || e.keyCode == '38') {
+    if (e.keyCode == '37' || e.keyCode == '38' || e.keyCode == '188') { // left, up, comma (,)
         incrementJob(false, false, false);
         e.preventDefault();
-    } else if (e.keyCode == '39' || e.keyCode == '40') {
+    } else if (e.keyCode == '39' || e.keyCode == '40' || e.keyCode == '191') { // down, right, forward slash (/)
         incrementJob(true, false, false);
         e.preventDefault();
-    } else if (e.keyCode == '32') {
+    } else if (e.keyCode == '13' || e.keyCode == '32') { // enter, space
+        var row = job_container.children[current];
+        var checkbox = row.getElementsByClassName("custom-control-input")[0];
+        checkbox.checked = !checkbox.checked;
+        e.preventDefault();
+    } else if (e.keyCode == '190') { // period (.)
         var row = job_container.children[current];
         incrementJob(true, true, !row.getElementsByClassName("custom-control-input")[0].checked);
         e.preventDefault();
